@@ -4,6 +4,7 @@ import logger from 'redux-logger'
 import { increment, decrement, asyncIncrement, changeTheme } from './redux/actions'
 import { rootReducer } from './redux/rootReducer'
 import './styles.css'
+import { INCREMENT } from './redux/types'
 
 
 const counter = document.getElementById('counter')
@@ -30,7 +31,9 @@ store.subscribe(() => {
   const state = store.getState()
   
   counter.textContent = state.counter
-  document.body.className = state.theme.value 
+  document.body.className = state.visualElements.themeValue;
+
+  [addBtn, subBtn, asyncBtn, themeBtn].forEach((el) => el.disabled = state.visualElements.buttonsDisabled)
 })
 
 store.dispatch({ type: 'INIT_APPLICATION' })
